@@ -139,7 +139,8 @@ class ClawChatClient:
             return self._post("/messages/send", {
                 "to": to,
                 "encrypted_content": encrypted,
-                "nonce": nonce
+                "nonce": nonce,
+                "plaintext_sender_copy": message  # So sender can read their own messages
             })
         else:
             # Fallback: send with plaintext preview (server can scan but content is marked)
@@ -150,7 +151,8 @@ class ClawChatClient:
                 "to": to,
                 "encrypted_content": fake_encrypted,
                 "nonce": fake_nonce,
-                "plaintext_preview": message  # For security scanning
+                "plaintext_preview": message,  # For security scanning
+                "plaintext_sender_copy": message
             })
     
     def inbox(self):
